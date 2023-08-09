@@ -41,27 +41,27 @@ const bandContainer = document.querySelector("#band");
 let currentDate = new Date();
 
 datePickerButton.addEventListener("click", () => {
+  let initialDate = currentDate;
   datePicker.classList.toggle("show");
   const selectedDate = fromUnixTime(datePickerButton.dataset.selectedDate);
   currentDate = selectedDate;
+  let isAugust = selectedDate.getUTCMonth() === 7;
 
-  // Render band images
-  const bandImg = document.createElement("img");
-  if (currentDate.getUTCDate() === 9) {
-    bandImg.src = "http://localhost:1234/saxophone.cb4a420e.jpg";
-    bandImg.width = 100;
-    console.log(bandInfo[0].image);
-    bandContainer.appendChild(bandImg);
-  } else if (currentDate.getUTCDate() === 10) {
-    bandImg.src = "http://localhost:1234/trumpet.617e49f3.jpg";
-    bandImg.width = 100;
-    console.log(bandInfo[0].image);
-    bandContainer.appendChild(bandImg);
-  } else if (currentDate.getUTCDate() === 11) {
-    bandImg.src = "//localhost:1234/piano.aa1e6821.jpg";
-    bandImg.width = 100;
-    console.log(bandInfo[0].image);
-    bandContainer.appendChild(bandImg);
+  if (initialDate.getUTCDate() !== currentDate.getUTCDate() && isAugust) {
+    // Render band images
+    bandContainer.innerHTML = "";
+    const bandImg = document.createElement("img");
+    bandImg.width = 300;
+    if (selectedDate.getUTCDate() === 10 && isAugust) {
+      bandImg.src = "http://localhost:1234/saxophone.cb4a420e.jpg";
+      bandContainer.appendChild(bandImg);
+    } else if (currentDate.getUTCDate() === 11 && isAugust) {
+      bandImg.src = "http://localhost:1234/trumpet.617e49f3.jpg";
+      bandContainer.appendChild(bandImg);
+    } else if (currentDate.getUTCDate() === 12 && isAugust) {
+      bandImg.src = "//localhost:1234/piano.aa1e6821.jpg";
+      bandContainer.appendChild(bandImg);
+    }
   }
 
   setupDatePicker(selectedDate);
